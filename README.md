@@ -52,3 +52,5 @@ To run the bot, simply run this from the root directory.
 ```bash
 node index.js
 ```
+
+***Happy botting!***
