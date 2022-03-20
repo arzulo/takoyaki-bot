@@ -2,7 +2,7 @@
 Bot for a private discord server.
 
 This repo can also be used as a starting template for any Discord.js based bot. 
-The setup guide below is intended to be 
+The setup guide below is intended to be ran on an Debian based system (Ubuntu 20.04 was used for me).
 
 <h1>How To Setup</h1>
 <h2>Clone the repo</h2>
