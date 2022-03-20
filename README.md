@@ -17,6 +17,7 @@ npm install
 ```
 
 <h2>Establish `.env` at root directory</h2>
+
 A file named `.env` needs to be created at the root directory of this checkout.  This contains sensitive local environment information that is to NOT be committed into the repo (removed in the included `.gitignore`).
 
 The following fields need to be addded into the `.env` file
