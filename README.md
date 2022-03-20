@@ -5,10 +5,13 @@ This repo can also be used as a starting template for any Discord.js based bot.
 
 <h1>How To Setup</h1>
 <h2>Clone the repo</h2>
+
 ```
 git clone https://github.com/arzulo/takoyaki-bot.git
 ```
+
 <h2>Install node dependencies</h2>
+
 ```
 npm install
 ```
