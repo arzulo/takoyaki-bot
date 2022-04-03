@@ -34,6 +34,13 @@ A file named `.env` needs to be created at the root directory of this checkout. 
 The following fields need to be addded into the `.env` file
 ```js
 BOT_TOKEN=<BOT TOKEN HERE>
+GUILD_ID=<ID OF SERVER>
+ROLE_MANAGER_CHANNEL_ID=<ID OF CHANNEL TO CHECK ROLE MANAGEMENT>
+ARTIST_ROLE_ID=<ID OF ARTIST ROLE>
+SOUND_ROLE_ID=<ID OF SOUND ROLE>
+PROGRAMMER_ROLE_ID=<ID OF PROGRAMMER ROLE>
+TESTER_ROLE_ID=<ID OF TESTER ROLE>
+TWITCH_ROLE_ID=<ID OF TWITCH NOTIF ROLE>
 ```
 
 Your discord bot token can be found under the Bot settings in your [Discord applications page](https://discord.com/developers/applications)
