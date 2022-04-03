@@ -31,7 +31,6 @@ function roleAssigner(message, user, add_or_remove) {
 			role_id=null;
 			console.log("Emoji not available for role selection...");
 			return; // return early if null value passed in...
-			break;
 	}
 
 	// Get role and guild object

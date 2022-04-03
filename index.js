@@ -19,5 +19,14 @@ client.once('ready', () => {
 	console.log('Ready!');
 });
 
+client.on("messageCreate", msg => {
+	let str = msg.content;
+	switch(str) {
+		case "!ping":
+			msg.channel.send("Pong!");
+			break;
+	}
+});
+
 // Login to Discord with your client's token
 client.login(process.env.BOT_TOKEN);
