@@ -87,18 +87,20 @@ function musicPlayerInit(GuildMember) {
 		// }
 
 		// Playing interaction
-		if (interaction.commandName === "play") {
-			await interaction.deferReply();
+		switch(interaction.commandName) {
 
-			const query = interaction.options.get("query").value;
-			const searchResult = await player
-				.search(query, {
-				requestedBy: interaction.user,
-				searchEngine: QueryType.AUTO
-				})
-				.catch(() => {});
+			case "play":
+				await interaction.deferReply();
+	
+				const query = interaction.options.get("query").value;
+				const searchResult = await player
+					.search(query, {
+						requestedBy: interaction.user,
+						searchEngine: QueryType.AUTO
+					})
+					.catch(() => {});
 				if (!searchResult || !searchResult.tracks.length) return void interaction.followUp({ content: "No results were found!" });
-				const queue = await player.createQueue(interaction.guild, {
+				var queue = await player.createQueue(interaction.guild, {
 					metadata: interaction.channel
 				});
 		
@@ -112,29 +114,38 @@ function musicPlayerInit(GuildMember) {
 				await interaction.followUp({ content: `⏱ | Loading your ${searchResult.playlist ? "playlist" : "track"}...` });
 				searchResult.playlist ? queue.addTracks(searchResult.tracks) : queue.addTrack(searchResult.tracks[0]);
 				if (!queue.playing) await queue.play();
+				break;
+			// Skipping interaction
+			case "skip":
+				await interaction.deferReply();
+				var queue = player.getQueue(interaction.guildId);
+				if (!queue || !queue.playing) return void interaction.followUp({ content: "❌ | No music is being played!" });
+				const currentTrack = queue.current;
+				const success = queue.skip();
+				return void interaction.followUp({
+					content: success ? `✅ | Skipped **${currentTrack}**!` : "❌ | Something went wrong!"
+				});
+				break;
+			case "stop":
+				await interaction.deferReply();
+				var queue = player.getQueue(interaction.guildId);
+				if (!queue || !queue.playing) return void interaction.followUp({ content: "❌ | No music is being played!" });
+				queue.destroy();
+				return void interaction.followUp({ content: "🛑 | Stopped the player!" });
+				break;
+			case "queue":
+				interaction.reply({
+					content: player.getQueue(interaction.guildId).toString(),
+					ephemeral: true
+				});
+				break;
+			default:
+				interaction.reply({
+				    content: "Unknown command!",
+				    ephemeral: true
+				});
 		}
-		// Skipping interaction
-		else if (interaction.commandName === "skip") {
-			await interaction.deferReply();
-			const queue = player.getQueue(interaction.guildId);
-			if (!queue || !queue.playing) return void interaction.followUp({ content: "❌ | No music is being played!" });
-			const currentTrack = queue.current;
-			const success = queue.skip();
-			return void interaction.followUp({
-				content: success ? `✅ | Skipped **${currentTrack}**!` : "❌ | Something went wrong!"
-			});
-		} else if (interaction.commandName === "stop") { 	// Stopping interaction 
-			await interaction.deferReply();
-			const queue = player.getQueue(interaction.guildId);
-			if (!queue || !queue.playing) return void interaction.followUp({ content: "❌ | No music is being played!" });
-			queue.destroy();
-			return void interaction.followUp({ content: "🛑 | Stopped the player!" });
-		}  else {
-			interaction.reply({
-			    content: "Unknown command!",
-			    ephemeral: true
-			});
-		}
+
 
 
 

@@ -23,7 +23,13 @@ client = new Client({ intents: [
 	GatewayIntentBits.GuildVoiceStates,
 	GatewayIntentBits.MessageContent
 ] });
-player = new Player(client);
+player = new Player(client,  {
+	ytdlOptions: {
+                filter: 'audioonly',
+                highWaterMark: 1 << 30,
+                dlChunkSize: 0,
+            },
+	});
 
 // When the client is ready, initialize some components
 client.once('ready', () => {
