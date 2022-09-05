@@ -17,7 +17,7 @@ Node.js is the backend technology we'll be using to run the bot and npm is a JS 
 
 ```bash
 # Using Ubuntu
-curl -fsSL https://deb.nodesource.com/setup_17.x | sudo -E bash -
+curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
 sudo apt-get install -y nodejs
 ```
 <br>
