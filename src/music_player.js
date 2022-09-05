@@ -1,9 +1,6 @@
 
-function roleAssigner(message, user, add_or_remove) {
-
-	return;
-}
-
+// Require classes
+const { QueryType } = require("discord-player");
 
 async function musicPlayerDeploy(message) {
 
@@ -41,10 +38,7 @@ async function musicPlayerDeploy(message) {
 }
 
 function musicPlayerInit(GuildMember) {
-	// const player = new Player(client);
 	// Class handlers required for the discord music player 
-	const QueryType = require("discord-player");
-
 	player.on("error", (queue, error) => {
 	    console.log(`[${queue.guild.name}] Error emitted from the queue: ${error.message}`);
 	});
@@ -74,7 +68,7 @@ function musicPlayerInit(GuildMember) {
 
 	// Setup interaction between the slash commands
 	client.on("interactionCreate", async (interaction) => {
-		if(interaction.channelId !== '1005628193933365248') {
+		if(process.env.MUSIC_CHANNEL_IDS && !process.env.MUSIC_CHANNEL_IDS.split(' ').includes(interaction.channelId)) {
 			interaction.reply({
 			    content: "Unauthorized",
 			    ephemeral: true
@@ -100,7 +94,7 @@ function musicPlayerInit(GuildMember) {
 			const searchResult = await player
 				.search(query, {
 				requestedBy: interaction.user,
-				searchEngine: QueryType.QueryType.AUTO
+				searchEngine: QueryType.AUTO
 				})
 				.catch(() => {});
 				if (!searchResult || !searchResult.tracks.length) return void interaction.followUp({ content: "No results were found!" });

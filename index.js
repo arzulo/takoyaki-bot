@@ -25,23 +25,20 @@ client = new Client({ intents: [
 ] });
 player = new Player(client);
 
-// client.on('messageReactionAdd', async message => {
-// 	RoleManager.roleAssigner(message)
-// });
-
-// When the client is ready, run this code (only once)
+// When the client is ready, initialize some components
 client.once('ready', () => {
-
-	RoleManager.roleManagerInit();
+	// Establish role manager if a channel ID is provided
+	if(process.env.ROLE_MANAGER_CHANNEL_ID) {
+		RoleManager.roleManagerInit();
+	}
 	MusicPlayer.musicPlayerInit(GuildMember); // init music player
-	console.log('Ready!');
+	console.log('Bot is ready!');
 });
 
 
 // Simple logs
 client.on("error", console.error);
 client.on("warn", console.warn);
-
 
 // Check messages
 client.on("messageCreate", async msg => {
@@ -53,6 +50,7 @@ client.on("messageCreate", async msg => {
 	// Check for music deployment
 	MusicPlayer.musicPlayerDeploy(msg);
 
+	// Simple ping test
 	let str = msg.content;
 	switch(str) {
 		case "!ping":
