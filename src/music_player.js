@@ -93,12 +93,15 @@ function musicPlayerInit(GuildMember) {
 				await interaction.deferReply();
 	
 				const query = interaction.options.get("query").value;
-				const searchResult = await player
-					.search(query, {
-						requestedBy: interaction.user,
-						searchEngine: QueryType.AUTO
-					})
-					.catch(() => {});
+				//const searchResult = await player.search(query, {
+				//	requestedBy: interaction.user
+				//}).then(x => x.tracks[0]);
+				 const searchResult = await player
+				 	.search(query, {
+				 		requestedBy: interaction.user,
+				 		searchEngine: QueryType.AUTO
+				 	})
+				 	.catch(() => {});
 				if (!searchResult || !searchResult.tracks.length) return void interaction.followUp({ content: "No results were found!" });
 				var queue = await player.createQueue(interaction.guild, {
 					metadata: interaction.channel
