@@ -75,7 +75,6 @@ function musicPlayerInit(GuildMember) {
 		console.log(commands_available.indexOf(interaction.commandName));
 		if(commands_available.indexOf(interaction.commandName) == -1) {
 			console.log("leaving?");
-			MessageExistingThread;
 			return;
 		}	
 			console.log("leaving?");
