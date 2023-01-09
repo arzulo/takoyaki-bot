@@ -4,12 +4,19 @@ const { Client, GuildMember, GatewayIntentBits} = require('discord.js');
 // Class handlers required for the discord music player 
 const { Player} = require("discord-player");
 
-
 // Import events
 const RoleManager = require("./src/role_assigner.js");
 
 // Import music player events
 const MusicPlayer = require("./src/music_player.js");
+const TwitterGrabber = require("./src/twitter_grabber.js");
+
+// Import twitter object
+const Twit = require('twit');
+
+const zaneuuid = require('uuid');
+v4uuid = zaneuuid.v4;
+
 
 // Importat local configuration parameters
 require('dotenv').config();
@@ -31,6 +38,14 @@ player = new Player(client,  {
             },
 	});
 
+// Construct new twitter api handler
+twitconf = {
+	consumer_key: process.env.TWITTER_CONSUMER_KEY,
+	consumer_secret: process.env.TWITTER_CONSUMER_KEY_SECRET,
+	app_only_auth:	true
+}
+twitapi = new Twit(twitconf);
+
 // When the client is ready, initialize some components
 client.once('ready', () => {
 	// Establish role manager if a channel ID is provided
@@ -38,6 +53,7 @@ client.once('ready', () => {
 		RoleManager.roleManagerInit();
 	}
 	MusicPlayer.musicPlayerInit(GuildMember); // init music player
+	TwitterGrabber.twitterGrabberInit(GuildMember);
 	console.log('Bot is ready!');
 });
 
@@ -55,6 +71,7 @@ client.on("messageCreate", async msg => {
 
 	// Check for music deployment
 	MusicPlayer.musicPlayerDeploy(msg);
+	TwitterGrabber.twitterGrabberDeploy(msg);
 
 	// Simple ping test
 	let str = msg.content;

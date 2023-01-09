@@ -32,7 +32,7 @@ async function musicPlayerDeploy(message) {
 		},
 		]);
 
-		await message.reply("Deployed!");
+		await message.reply("Deployed music player commands!");
 	}
 	
 }
@@ -68,6 +68,14 @@ function musicPlayerInit(GuildMember) {
 
 	// Setup interaction between the slash commands
 	client.on("interactionCreate", async (interaction) => {
+
+		// Check if the command is even valid first
+		var commands_available = ["play", "stop", "queue", "skip"];
+		if(commands_available.indexOf(interaction.commandName) == -1) {
+			return;
+		}	
+
+		// Check if the user is authorized to use the command
 		if(process.env.MUSIC_CHANNEL_IDS && !process.env.MUSIC_CHANNEL_IDS.split(' ').includes(interaction.channelId)) {
 			interaction.reply({
 			    content: "Unauthorized",
@@ -78,7 +86,7 @@ function musicPlayerInit(GuildMember) {
 		if (!interaction.isCommand() || !interaction.guildId) return;
 
 		if (!(interaction.member instanceof GuildMember) || !interaction.member.voice.channel) {
-		return void interaction.reply({ content: "You are not in a voice channel!", ephemeral: true });
+			return void interaction.reply({ content: "You are not in a voice channel!", ephemeral: true });
 		}
 
 		// if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) {
@@ -142,11 +150,11 @@ function musicPlayerInit(GuildMember) {
 					ephemeral: true
 				});
 				break;
-			default:
-				interaction.reply({
-				    content: "Unknown command!",
-				    ephemeral: true
-				});
+			// default:
+			// 	interaction.reply({
+			// 	    content: "Unknown command!",
+			// 	    ephemeral: true
+			// 	});
 		}
 
 
