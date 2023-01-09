@@ -74,8 +74,11 @@ function musicPlayerInit(GuildMember) {
 		console.log(interaction.commandName);
 		console.log(commands_available.indexOf(interaction.commandName));
 		if(commands_available.indexOf(interaction.commandName) == -1) {
+			console.log("leaving?");
+			MessageExistingThread;
 			return;
 		}	
+			console.log("leaving?");
 
 		// Check if the user is authorized to use the command
 		if(process.env.MUSIC_CHANNEL_IDS && !process.env.MUSIC_CHANNEL_IDS.split(' ').includes(interaction.channelId)) {
