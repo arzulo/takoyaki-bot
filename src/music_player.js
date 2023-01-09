@@ -73,22 +73,22 @@ function musicPlayerInit(GuildMember) {
 		var commands_available = ["play", "stop", "queue", "skip"];
 		if(commands_available.indexOf(interaction.commandName) == -1) {
 			return;
-		} else {
+		}	
 
-			// Check if the user is authorized to use the command
-			if(process.env.MUSIC_CHANNEL_IDS && !process.env.MUSIC_CHANNEL_IDS.split(' ').includes(interaction.channelId)) {
-				interaction.reply({
-				    content: "Unauthorized",
-				    ephemeral: true
-				});
-				return;
-			}
-			if (!interaction.isCommand() || !interaction.guildId) return;
-
-			if (!(interaction.member instanceof GuildMember) || !interaction.member.voice.channel) {
-				return void interaction.reply({ content: "You are not in a voice channel!", ephemeral: true });
-			}
+		// Check if the user is authorized to use the command
+		if(process.env.MUSIC_CHANNEL_IDS && !process.env.MUSIC_CHANNEL_IDS.split(' ').includes(interaction.channelId)) {
+			interaction.reply({
+			    content: "Unauthorized",
+			    ephemeral: true
+			});
+			return;
 		}
+		if (!interaction.isCommand() || !interaction.guildId) return;
+
+		if (!(interaction.member instanceof GuildMember) || !interaction.member.voice.channel) {
+			return void interaction.reply({ content: "You are not in a voice channel!", ephemeral: true });
+		}
+
 		// if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) {
 		// if(interaction.member.voice.channelId){
 		// return void interaction.reply({ content: "You are not in my voice channel!", ephemeral: true });

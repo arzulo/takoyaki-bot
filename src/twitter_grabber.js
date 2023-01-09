@@ -118,7 +118,7 @@ async function twitterGrabberInit(GuildMember) {
 
 				// Exit if not a proper tweet URL
 				if(isNaN(Number(tweet_id))) {
-					interaction.reply({
+					interaction.editReply({
 						content: "Unable to find tweet ID in URL provided.",
 						ephemeral: true
 					});
