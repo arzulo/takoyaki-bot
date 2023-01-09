@@ -71,6 +71,7 @@ function musicPlayerInit(GuildMember) {
 
 		// Check if the command is even valid first
 		var commands_available = ["play", "stop", "queue", "skip"];
+		console.log(interaction.commandName);
 		if(commands_available.indexOf(interaction.commandName) == -1) {
 			return;
 		}	
