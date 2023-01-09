@@ -114,7 +114,8 @@ async function twitterGrabberInit(GuildMember) {
 				await interaction.deferReply();
 
 				var tweet_url_split = interaction.options.get("tweet").value.split("/");
-				var tweet_id = tweet_url_split[tweet_url_split.length-1];
+				var tweet_id_pulled = tweet_url_split[tweet_url_split.length-1];
+				var tweet_id = tweet_id_pulled.split("?")[0];
 
 				// Exit if not a proper tweet URL
 				if(isNaN(Number(tweet_id))) {
@@ -235,6 +236,7 @@ async function twitterGrabberInit(GuildMember) {
 
 									} catch(e) {
 										console.log("Something went wrong with the download");
+										console.log(e);
 										interaction.editReply("Something went wrong...");
 										return;
 									}
