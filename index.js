@@ -70,7 +70,7 @@ client.on("messageCreate", async msg => {
     	if (!client.application?.owner) await client.application?.fetch();
 
 	// Check for music deployment
-	MusicPlayer.musicPlayerDeploy(msg);
+	// MusicPlayer.musicPlayerDeploy(msg);
 	TwitterGrabber.twitterGrabberDeploy(msg);
 
 	// Simple ping test
