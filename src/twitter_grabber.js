@@ -62,14 +62,17 @@ async function twitterGrabberInit(GuildMember) {
 		// Delete the previous files.... super janky soolution
 		const directory = "media";
 		fs.readdir(directory, (err, files) => {
-		  if (err) throw err;
-		
+		  if (err) {
+			console.log(err);
+		  }
 		  for (var cfile of files) {
 			if(cfile == ".gitkeep") {
 				continue
 			}
 		    fs.unlink(path.join(directory, cfile), (err) => {
-		      if (err) throw err;
+		      if (err) {
+			console.log(err);
+		      };
 		    });
 		  }
 		});
